@@ -15,7 +15,9 @@ const App = () => {
 	useFocusEffect(
 		React.useCallback(() => {
 			async function getRecipes() {
-				const results = await db.getAllAsync("SELECT * FROM recipes");
+				const results = await db.getAllAsync(
+					"SELECT * FROM recipes WHERE isStarred = 1"
+				);
 				setRecipes((results as Recipe[]) || []);
 			}
 			getRecipes();
@@ -27,7 +29,7 @@ const App = () => {
 			<TopBar title={"Starred recipes"} />
 			<View className="flex-1">
 				<FlatList
-					data={recipes.filter((recipe) => recipe.isStarred)}
+					data={recipes}
 					renderItem={({ item }) => (
 						<Link
 							href={{

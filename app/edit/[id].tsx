@@ -32,14 +32,7 @@ const Recipe = () => {
 		fetchRecipe();
 	}, [id, db]);
 
-	if (
-		!db ||
-		!id ||
-		!formData.title.length ||
-		!formData.ingredients.length ||
-		!formData.instructions.length
-	)
-		return <Loading />;
+	if (!db || !formData.title) return <Loading />;
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
