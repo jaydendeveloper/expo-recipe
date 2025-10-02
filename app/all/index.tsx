@@ -1,6 +1,7 @@
 import Navigator from "@/components/Navigator";
 import RecipeCard from "@/components/RecipeCard";
 import TopBar from "@/components/TopBar";
+import { Link } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import React from "react";
 import { FlatList, View } from "react-native";
@@ -25,11 +26,20 @@ const AllRecipes = () => {
 					<FlatList
 						data={recipes}
 						renderItem={({ item }) => (
-							<RecipeCard
-								title={item.title}
-								ingredients={item.ingredients}
-								instructions={item.instructions}
-							/>
+							<Link
+								href={{
+									pathname: "/recipe/[id]",
+									params: { id: item.id.toString() },
+								}}
+								asChild
+							>
+								<RecipeCard
+									title={item.title}
+									ingredients={item.ingredients}
+									instructions={item.instructions}
+									isStarred={item.isStarred}
+								/>
+							</Link>
 						)}
 						keyExtractor={(item) => item.id.toString()}
 					/>
