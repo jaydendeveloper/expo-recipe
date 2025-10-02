@@ -49,7 +49,7 @@ const App = () => {
 					keyExtractor={(item) => item.id.toString()}
 				/>
 			</View>
-			<Navigator />
+			<Navigator currentPage="/" />
 		</SafeAreaView>
 	);
 };

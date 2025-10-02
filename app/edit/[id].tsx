@@ -99,7 +99,7 @@ const Recipe = () => {
 				/>
 			</View>
 			<View className="flex-1" />
-			<Navigator />
+			<Navigator currentPage={`/edit/${id}`} />
 		</SafeAreaView>
 	);
 };

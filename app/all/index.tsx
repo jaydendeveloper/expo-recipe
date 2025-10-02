@@ -48,7 +48,7 @@ const AllRecipes = () => {
 					/>
 				</View>
 			</View>
-			<Navigator />
+			<Navigator currentPage="/all" />
 		</SafeAreaView>
 	);
 };

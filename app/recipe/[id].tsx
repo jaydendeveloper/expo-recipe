@@ -37,7 +37,7 @@ const Recipe = () => {
 			</View>
 			<View className="flex-1" />
 			<RecipeActions db={db} recipeId={id as string} />
-			<Navigator />
+			<Navigator currentPage={`/recipe/${id}`} />
 		</SafeAreaView>
 	);
 };
