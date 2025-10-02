@@ -15,7 +15,7 @@ const RecipeCard = ({
 	return (
 		<Pressable
 			{...props}
-			className="bg-white dark:bg-slate-800 rounded-xl p-4 m-2 shadow-md"
+			className="bg-white dark:bg-zinc-700 rounded-xl p-4 m-2 shadow-md"
 		>
 			<View className="flex flex-row justify-between items-start">
 				<Text className="text-2xl font-bold text-slate-900 dark:text-white w-11/12">

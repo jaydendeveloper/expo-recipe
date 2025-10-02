@@ -9,7 +9,7 @@ const Navigator = ({ currentPage }: { currentPage: string }) => {
 	};
 
 	return (
-		<View className="flex-row p-4 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
+		<View className="flex-row p-5 bg-white dark:bg-zinc-700 border-t border-slate-200">
 			<Link className="flex-1 h-full" href="/">
 				<Text className={getLinkStyle("/")}>Starred</Text>
 			</Link>

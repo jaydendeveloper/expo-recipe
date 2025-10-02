@@ -25,7 +25,7 @@ const App = () => {
 	);
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		<SafeAreaView className="dark:bg-zinc-900 flex-1">
 			<TopBar title={"Starred recipes"} />
 			<View className="flex-1">
 				<FlatList

@@ -23,17 +23,17 @@ const Recipe = () => {
 				setRecipe(response as Recipe);
 			}
 			getRecipe();
-		}, [])
+		}, [db, id])
 	);
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		<SafeAreaView className="dark:bg-zinc-900 flex-1">
 			<TopBar title={`${recipe?.title}` + (recipe?.isStarred ? "⭐" : "")} />
-			<View className="p-4 gap-4">
-				<Text className="text-2xl font-bold">Ingredients</Text>
-				<Text>{recipe?.ingredients}</Text>
-				<Text className="text-2xl font-bold">Instructions</Text>
-				<Text>{recipe?.instructions}</Text>
+			<View className="p-4 gap-4 ">
+				<Text className="text-2xl font-bold dark:text-white">Ingredients</Text>
+				<Text className="dark:text-white">{recipe?.ingredients}</Text>
+				<Text className="text-2xl font-bold dark:text-white">Instructions</Text>
+				<Text className="dark:text-white">{recipe?.instructions}</Text>
 			</View>
 			<View className="flex-1" />
 			<RecipeActions db={db} recipeId={id as string} />

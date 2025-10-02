@@ -32,20 +32,20 @@ const Recipe = () => {
 		fetchRecipe();
 	}, [id, db]);
 
-	if (!db || !formData.title) return <Loading />;
+	if (!db) return <Loading />;
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		<SafeAreaView className="dark:bg-zinc-900 flex-1">
 			<TopBar title={"Edit recipe"} />
 			<View className="p-4 gap-5">
 				<TextInput
-					className="border border-green-700 w-full"
+					className="border border-green-700 w-full dark:text-white dark:border-green-500 placeholder:text-gray-400"
 					placeholder="Recipe title"
 					value={formData?.title || ""}
 					onChangeText={(text) => setFormData({ ...formData, title: text })}
 				/>
 				<TextInput
-					className="border border-green-700 w-full"
+					className="border border-green-700 w-full dark:text-white dark:border-green-500 placeholder:text-gray-400"
 					placeholder="Recipe ingredients"
 					value={formData.ingredients || ""}
 					onChangeText={(text) =>
@@ -53,7 +53,7 @@ const Recipe = () => {
 					}
 				/>
 				<TextInput
-					className="border border-green-700 w-full"
+					className="border border-green-700 w-full dark:text-white dark:border-green-500 placeholder:text-gray-400"
 					placeholder="Recipe instructions"
 					value={formData.instructions || ""}
 					onChangeText={(text) =>
@@ -68,7 +68,7 @@ const Recipe = () => {
 							setFormData({ ...formData, isStarred: value })
 						}
 					/>
-					<Text>Starred</Text>
+					<Text className="dark:text-white">Starred</Text>
 				</View>
 				<Button
 					color="#15803d"

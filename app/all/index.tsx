@@ -22,7 +22,7 @@ const AllRecipes = () => {
 	);
 
 	return (
-		<SafeAreaView className="flex-1">
+		<SafeAreaView className="dark:bg-zinc-900 flex-1">
 			<TopBar title={"All Recipes"} />
 			<View className="flex-1 justify-center items-center">
 				<View className="flex-1 w-full">
