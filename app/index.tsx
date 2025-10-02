@@ -1,9 +1,9 @@
 import Navigator from "@/components/Navigator";
 import RecipeCard from "@/components/RecipeCard";
 import TopBar from "@/components/TopBar";
-import { Link } from "expo-router";
+import { Link, useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import React, { useEffect } from "react";
+import React from "react";
 import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -12,13 +12,15 @@ const App = () => {
 
 	const [recipes, setRecipes] = React.useState<Recipe[]>([]);
 
-	useEffect(() => {
-		async function getRecipes() {
-			const results = await db.getAllAsync("SELECT * FROM recipes");
-			setRecipes((results as Recipe[]) || []);
-		}
-		getRecipes();
-	}, [db]);
+	useFocusEffect(
+		React.useCallback(() => {
+			async function getRecipes() {
+				const results = await db.getAllAsync("SELECT * FROM recipes");
+				setRecipes((results as Recipe[]) || []);
+			}
+			getRecipes();
+		}, [db])
+	);
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>

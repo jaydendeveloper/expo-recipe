@@ -1,7 +1,7 @@
 import Navigator from "@/components/Navigator";
 import RecipeActions from "@/components/RecipeActions";
 import TopBar from "@/components/TopBar";
-import { useLocalSearchParams } from "expo-router";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
 import React from "react";
 import { Text, View } from "react-native";
@@ -13,21 +13,22 @@ const Recipe = () => {
 
 	const [recipe, setRecipe] = React.useState<Recipe | null>(null);
 
-	React.useEffect(() => {
-		const fetchRecipe = async () => {
-			const response = await db.getFirstAsync(
-				"SELECT * FROM recipes WHERE id = ?",
-				[String(id)]
-			);
-			setRecipe(response as Recipe);
-		};
-
-		fetchRecipe();
-	}, [id, db]);
+	useFocusEffect(
+		React.useCallback(() => {
+			async function getRecipe() {
+				const response = await db.getFirstAsync(
+					"SELECT * FROM recipes WHERE id = ?",
+					[String(id)]
+				);
+				setRecipe(response as Recipe);
+			}
+			getRecipe();
+		}, [])
+	);
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
-			<TopBar title={`${recipe?.title}`} />
+			<TopBar title={`${recipe?.title}` + (recipe?.isStarred ? "⭐" : "")} />
 			<View className="p-4 gap-4">
 				<Text className="text-2xl font-bold">Ingredients</Text>
 				<Text>{recipe?.ingredients}</Text>
@@ -35,7 +36,7 @@ const Recipe = () => {
 				<Text>{recipe?.instructions}</Text>
 			</View>
 			<View className="flex-1" />
-			<RecipeActions />
+			<RecipeActions db={db} recipeId={id as string} />
 			<Navigator />
 		</SafeAreaView>
 	);
