@@ -1,4 +1,5 @@
 import Navigator from "@/components/Navigator";
+import RecipeActions from "@/components/RecipeActions";
 import TopBar from "@/components/TopBar";
 import { useLocalSearchParams } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
@@ -34,6 +35,7 @@ const Recipe = () => {
 				<Text>{recipe?.instructions}</Text>
 			</View>
 			<View className="flex-1" />
+			<RecipeActions />
 			<Navigator />
 		</SafeAreaView>
 	);
