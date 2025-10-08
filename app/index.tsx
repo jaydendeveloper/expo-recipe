@@ -1,8 +1,9 @@
 import Navigator from "@/components/Navigator";
 import RecipeCard from "@/components/RecipeCard";
 import TopBar from "@/components/TopBar";
+import { Link, useFocusEffect } from "expo-router";
 import { useSQLiteContext } from "expo-sqlite";
-import React, { useEffect } from "react";
+import React from "react";
 import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -11,31 +12,44 @@ const App = () => {
 
 	const [recipes, setRecipes] = React.useState<Recipe[]>([]);
 
-	useEffect(() => {
-		async function getRecipes() {
-			const results = await db.getAllAsync("SELECT * FROM recipes");
-			setRecipes((results as Recipe[]) || []);
-		}
-		getRecipes();
-	}, [db]);
+	useFocusEffect(
+		React.useCallback(() => {
+			async function getRecipes() {
+				const results = await db.getAllAsync(
+					"SELECT * FROM recipes WHERE isStarred = 1"
+				);
+				setRecipes((results as Recipe[]) || []);
+			}
+			getRecipes();
+		}, [db])
+	);
 
 	return (
-		<SafeAreaView style={{ flex: 1 }}>
+		<SafeAreaView className="dark:bg-zinc-900 flex-1">
 			<TopBar title={"Starred recipes"} />
 			<View className="flex-1">
 				<FlatList
-					data={recipes.filter((recipe) => recipe.isStarred)}
+					data={recipes}
 					renderItem={({ item }) => (
-						<RecipeCard
-							title={item.title}
-							ingredients={item.ingredients}
-							instructions={item.instructions}
-						/>
+						<Link
+							href={{
+								pathname: "/recipe/[id]",
+								params: { id: item.id.toString() },
+							}}
+							asChild
+						>
+							<RecipeCard
+								title={item.title}
+								ingredients={item.ingredients}
+								instructions={item.instructions}
+								isStarred={item.isStarred}
+							/>
+						</Link>
 					)}
 					keyExtractor={(item) => item.id.toString()}
 				/>
 			</View>
-			<Navigator />
+			<Navigator currentPage="/" />
 		</SafeAreaView>
 	);
 };

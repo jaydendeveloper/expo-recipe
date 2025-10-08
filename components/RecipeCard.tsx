@@ -1,20 +1,35 @@
-import { Text, View } from "react-native";
+import { Pressable, Text, View, type PressableProps } from "react-native";
 
 const RecipeCard = ({
 	title,
 	ingredients,
 	instructions,
+	isStarred,
+	...props
 }: {
 	title: string;
 	ingredients: string;
 	instructions: string;
-}) => {
+	isStarred: boolean;
+} & PressableProps) => {
 	return (
-		<View className="border p-4 m-2 rounded">
-			<Text className="text-xl font-bold">{title}</Text>
-			<Text className="text-gray-600">Ingredients: {ingredients}</Text>
-			<Text className="text-gray-600">Instructions: {instructions}</Text>
-		</View>
+		<Pressable
+			{...props}
+			className="bg-white dark:bg-zinc-700 rounded-xl p-4 m-2 shadow-md"
+		>
+			<View className="flex flex-row justify-between items-start">
+				<Text className="text-2xl font-bold text-slate-900 dark:text-white w-11/12">
+					{title}
+				</Text>
+				{isStarred ? <Text className="text-2xl ml-2">⭐</Text> : null}
+			</View>
+			<Text
+				className="text-slate-500 dark:text-slate-400 mt-2"
+				numberOfLines={2}
+			>
+				{ingredients}
+			</Text>
+		</Pressable>
 	);
 };
 

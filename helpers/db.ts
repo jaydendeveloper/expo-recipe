@@ -24,3 +24,20 @@ export async function initDb(db: SQLiteDatabase) {
 		console.log("Database initialized and table ensured.");
 	}
 }
+
+export async function deleteRecipe(db: SQLiteDatabase, id: string) {
+	const response = await db.runAsync("DELETE FROM recipes WHERE id = ?", id);
+	return response.changes > 0;
+}
+
+export async function changeStarredStatus(
+	db: SQLiteDatabase,
+	id: string,
+	isStarred: boolean
+) {
+	const response = await db.runAsync(
+		"UPDATE recipes SET isStarred = ? WHERE id = ?",
+		[isStarred, id]
+	);
+	return response.changes > 0;
+}
